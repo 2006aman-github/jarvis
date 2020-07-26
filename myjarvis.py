@@ -1,109 +1,69 @@
-import pyttsx3 #pip install pyttsx3
-import speech_recognition as sr #pip install speechRecognition
+import pyttsx3
 import datetime
-import wikipedia #pip install wikipedia
-import webbrowser
-import os
-import smtplib
+import time
+import speech_recognition as sr
+import wikipedia
+
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
-# print(voices[1].id)
 engine.setProperty('voice', voices[0].id)
 
+master="James"
 
-def speak(audio):
-    engine.say(audio)
+def say(command):
+    engine.say(command)
     engine.runAndWait()
 
-
-def wishMe():
+def wish():
+    global master
     hour = int(datetime.datetime.now().hour)
-    if hour>=0 and hour<12:
-        speak("Good Morning!")
-
-    elif hour>=12 and hour<18:
-        speak("Good Afternoon!")   
-
+    if hour > 3 and hour < 11:
+        say(f"Good Morning {master}")
+    elif hour > 11 and hour < 16:
+        say(f"Good Afternoon {master}")
+    elif hour > 16 and hour < 24:
+        say(f"Good Evening {master}")
     else:
-        speak("Good Evening!")  
-
-    speak("I am Jarvis Sir. Please tell me how may I help you")       
+        say("hello")
 
 def takeCommand():
-    #It takes microphone input from the user and returns string output
-
     r = sr.Recognizer()
+    
     with sr.Microphone() as source:
-        print("Listening...")
+        print("Listening..")
         r.pause_threshold = 1
-        audio = r.listen(source)
+        audio = r.listen(source, timeout = None)
 
     try:
-        print("Recognizing...")    
-        query = r.recognize_google(audio, language='en-in')
-        print(f"User said: {query}\n")
-
-    except Exception as e:
-        # print(e)    
-        print("Say that again please...")  
+        print("Recognizing...")
+        query = r.recognize_google(audio, language="en-in")
+        print(f"You said: {query}")
+        time.sleep(1)
+        return query
+    except:
         return "None"
-    return query
 
-def sendEmail(to, content):
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.ehlo()
-    server.starttls()
-    server.login('youremail@gmail.com', 'your-password')
-    server.sendmail('youremail@gmail.com', to, content)
-    server.close()
+        
 
 if __name__ == "__main__":
-    wishMe()
+    wish()
+    say("How are You doing")
+    say("I'am Jarvis and How can I help you..")
     while True:
-    # if 1:
-        query = takeCommand().lower()
+        query = takeCommand().lower()  
 
-        # Logic for executing tasks based on query
+        #Jarvis Logic
         if 'wikipedia' in query:
-            speak('Searching Wikipedia...')
+            say("Searching..Just a moment!")
             query = query.replace("wikipedia", "")
-            results = wikipedia.summary(query, sentences=2)
-            speak("According to Wikipedia")
-            print(results)
-            speak(results)
-
-        elif 'open youtube' in query:
-            webbrowser.open("youtube.com")
-
-        elif 'open google' in query:
-            webbrowser.open("google.com")
-
-        elif 'open stackoverflow' in query:
-            webbrowser.open("stackoverflow.com")   
+            result = wikipedia.summary(query, sentences=2)
+            say(f"As Per my search. {result}")
+        elif "hello" in query or "hi" in query:
+            say(f"Hello {master}")
+        elif query == None:
+            say("I'm sorry I was not able to recognize that. Please Repeat")
+        elif "how are you" in query or "how are you doing" in query:
+            say(f"I'm fine {master}")
 
 
-        elif 'play music' in query:
-            music_dir = 'D:\\Non Critical\\songs\\Favorite Songs2'
-            songs = os.listdir(music_dir)
-            print(songs)    
-            os.startfile(os.path.join(music_dir, songs[0]))
-
-        elif 'the time' in query:
-            strTime = datetime.datetime.now().strftime("%H:%M:%S")    
-            speak(f"Sir, the time is {strTime}")
-
-        elif 'open code' in query:
-            codePath = "C:\\Users\\Haris\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
-            os.startfile(codePath)
-
-        elif 'email to harry' in query:
-            try:
-                speak("What should I say?")
-                content = takeCommand()
-                to = "harryyourEmail@gmail.com"    
-                sendEmail(to, content)
-                speak("Email has been sent!")
-            except Exception as e:
-                print(e)
-                speak("Sorry my friend harry bhai. I am not able to send this email")    
