@@ -1,0 +1,89 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hello Jarvis",
+        "what's Up ?",
+        "Hey Buddy",
+        "Hi",
+        "How're you doing",
+        "Great to see you",
+        "How is it going ?",
+        "Hey",
+        "Jarvis are you here ?"
+      ],
+      "response": "Hello, I am Jarvis. How can I help you ?"
+    },
+    {
+      "tag": "open_volumen_control",
+      "patterns": [
+        "Open Volume Control",
+        "Open Volume",
+        "Volume Control",
+        "Volume"
+      ]
+    },
+    {
+      "tag": "close_volumen_control",
+      "patterns": [
+        "Close Volume Control",
+        "Close Volume",
+        "exit Volume Control",
+        "Im done with Volume Control",
+        "Im done with Volume"
+      ],
+      "response": "Ok sir, Closing Volume Control"
+    },
+    {
+      "tag": "show_my_capability",
+      "patterns": [
+        "What can you do",
+        "What can you do for me",
+        "What are you capable of",
+        "What can I expect from you"
+      ],
+      "response": "I can do a bunch of stuff"
+    },
+    {
+      "tag": "shut_down_system",
+      "patterns": [
+        "shut down the pc",
+        "shut down the system",
+        "shut down the computer",
+        "off the pc",
+        "off the system",
+        "off the computer",
+        "turn off the pc",
+        "turn off the system",
+        "turn off the computer"
+      ],
+      "response": "Ok sir, Shutting down the system"
+    },
+    {
+      "tag": "open_browser",
+      "patterns": [
+        "Open Chrome",
+        "Open Google Chrome",
+        "Open Google Chrome Browser",
+        "I need the browser",
+        "I want to browse the web",
+        "lets checkout internet"
+      ],
+      "response": "Ok sir, Opening Chrome"
+    },
+    {
+      "tag": "give_presence_res",
+      "patterns": [
+        "Are you here Jarvis ?",
+        "Jarvis are you here ?",
+        "Can you show up jarvis",
+        "Jarvis wake up",
+        "Do I have an A.I here",
+        "can you here me Jarvis",
+        "Wake up, jarvis"
+      ],
+      "response": "Yes sir, I am here"
+    }
+  ]
+}
